@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+
+@font-face {
+    font-family: 'Scripto-2OR2v';
+    src: url('../assets/Scripto-2OR2v.ttf') format('woff');
+}
+
+body {
+    background-color: #061826;
+}
+
+header {
+    text-align: center;
+    background-color: #033f63;
+}
+
+header h1 {
+    font-family: 'Scripto-2OR2v';
+    font-size: 5em;
+    padding-top: 8px;
+    margin: 2% 0%;
+    color: #061826;
+}
+
+main {
+    background-color: #89aae6;
+    margin: 0 2%;
+    border-radius: 20px;
+    height: 100%;
+    font-family: 'PT Mono', monospace;
+    display: flex;
+    padding: 1%;
+}
+
+#toDoList {
+    line-height: 1.5em;
+}
+
+.trashIcon {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#toDoList caption {
+    font-size: 1.5em;
+    font-weight: 600;
+    padding: 1% 0 3% 0;
+}
+
+#div_table {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    padding: 2%;
+}
+
+#side_div {
+    display: flex;
+    width: 40%;
+    line-height: 1.5em;
+}
+
+#sideDesk {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    margin: 0;
+    padding: 0;
+    resize: none;
+}
+
+#div_table {}

@@ -9,6 +9,10 @@ body {
     background-color: #061826;
 }
 
+.checkboxtodolist {}
+
+#checkboxtodolist:checked {}
+
 header {
     text-align: center;
     background-color: #033f63;
@@ -37,17 +41,19 @@ main {
 }
 
 .trashIcon {
-    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    border-radius: 15px;
+    padding: 2px;
 }
 
-#toDoList caption {
+#div_table h2 {
     font-size: 1.5em;
     font-weight: 600;
     padding: 1% 0 3% 0;
+    text-align: center;
 }
 
 #div_table {
@@ -59,9 +65,21 @@ main {
 
 #side_div {
     display: flex;
+    flex-direction: row;
     width: 40%;
     line-height: 1.5em;
+    max-height: 40%;
 }
+
+#salva {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #ac80a0;
+    color: white;
+    font-size: 1.2em;
+    border: 0;
+}
+
 
 #sideDesk {
     width: 100%;
@@ -71,6 +89,8 @@ main {
     margin: 0;
     padding: 0;
     resize: none;
+    padding: 2%;
+    line-height: 1.5em;
 }
 
 #div_table {}

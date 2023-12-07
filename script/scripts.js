@@ -1,4 +1,3 @@
-
 const sideTextArea = document.getElementById("sideDesk")
 const arrayCoppieListaTesto = []
 const trHtml = document.getElementById("trHtml")
@@ -20,7 +19,7 @@ const creatr = function (riga, rigaAdd) {
     const tdcompito = document.createElement("td")
     const labelCompito = document.createElement("label")
     labelCompito.htmlFor = protocheckbox.id
-    labelCompito.innerText = "riga"
+    labelCompito.innerText = riga
     const prototdTrashIcon = document.createElement("td")
     const pTrashIcon = document.createElement("p")
     pTrashIcon.classList = "trashIcon"
@@ -48,8 +47,6 @@ const creatr = function (riga, rigaAdd) {
     return pacchettoFinale
 }
 
-//tBody.creatr("riga", "rigaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-
 const aggiungiTr = function (trElementDaPushare) {
     listaOnScreen.push(trElementDaPushare)
     refreshLista()
@@ -58,15 +55,17 @@ const aggiungiTr = function (trElementDaPushare) {
 
 const refreshLista = function () {
     tBody.remove();
+
+
     let newtBody = document.createElement("tbody");
 
-    for (let i = 0; i < listaOnScreen.length; i++) {
-        console.log("Inizializzo " + listaOnScreen[i].trPacchetto)
-        let newTr = creatr(listaOnScreen[i].trPacchetto, listaOnScreen[i].pPacchetto);
-        newtBody.tr = newTr
-    }
+    console.log(listaOnScreen.length)
 
-    // Creare un nuovo elemento tr per il pulsante e la nuova riga
+    for (let i = 0; i < listaOnScreen.length; i++) {
+
+        let newTr = creatr(listaOnScreen[i].trPacchetto, listaOnScreen[i].pPacchetto);
+        newtBody.appendChild(newTr.trPacchetto)
+    }
     const trAddItem = document.createElement("tr");
     const tdButtonAdd = document.createElement("td");
     const button = document.createElement("input");
@@ -83,7 +82,7 @@ const refreshLista = function () {
 
     newtBody.appendChild(trAddItem);
 
-    tablePrincipale.tBody = newtBody;
+    tablePrincipale.appendChild(newtBody);
 }
 
 
@@ -111,6 +110,5 @@ const elemento3 = {
 
 
 aggiungiTr(elemento1)
-aggiungiTr(elemento2)
-aggiungiTr(elemento3)
-console.log(listaOnScreen)
+//aggiungiTr(elemento2)
+//aggiungiTr(elemento3)

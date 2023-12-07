@@ -8,7 +8,58 @@ const tablePrincipale = document.getElementById("toDoList")
 
 const listaOnScreen = []
 
-const creatr = function (riga, rigaAdd) {
+
+
+const creaForm = function () {
+    const tdVuoto = document.getElementById("spazio_vuoto_per_input_text")
+
+    tdVuoto.innerHTML = `
+    <form style="display:flex">
+        <input type="text" placeholder="Digita la nota e premi invio" style="width: 100%">
+        <button>Invio</button>
+    </form>
+`
+}
+const aggiungiTr = function (trElementDaPushare) {
+    listaOnScreen.push(trElementDaPushare)
+    refreshLista()
+}
+
+
+const refreshLista = function () {
+
+    while (tBody.firstChild) {
+        tBody.removeChild(tBody.firstChild);
+    }
+
+    for (let i = 0; i < listaOnScreen.length; i++) {
+
+        let newTr = creatr(listaOnScreen[i].trPacchetto);
+        tBody.appendChild(newTr.trPacchetto)
+    }
+
+    const trAddItem = document.createElement("tr");
+    trAddItem.id = "trAddItem"
+    const tdButtonAdd = document.createElement("td");
+    const button = document.createElement("input");
+
+    button.onclick = creaForm;
+    button.type = "button";
+    button.value = `+`;
+    const tdVuoto1 = document.createElement("td");
+    const tdVuoto2 = document.createElement("td");
+
+    tdVuoto1.id = "spazio_vuoto_per_input_text"
+
+    tdButtonAdd.appendChild(button);
+    trAddItem.appendChild(tdButtonAdd);
+    trAddItem.appendChild(tdVuoto1);
+    trAddItem.appendChild(tdVuoto2);
+
+    tBody.appendChild(trAddItem);
+}
+
+const creatr = function (riga) {
     const prototrDaPushare = document.createElement("tr")
     prototrDaPushare.id = "idtr" + riga
     const tdcheckbox = document.createElement("td")
@@ -23,8 +74,8 @@ const creatr = function (riga, rigaAdd) {
     const prototdTrashIcon = document.createElement("td")
     const pTrashIcon = document.createElement("p")
     pTrashIcon.classList = "trashIcon"
-    pTrashIcon.onclick = function (tr) {
-        var riga = document.getElementById(tr);
+    pTrashIcon.onclick = function () {
+        let riga = document.getElementById(prototrDaPushare.id);
         riga.remove();
     };
     const icon = document.createElement("i")
@@ -41,51 +92,11 @@ const creatr = function (riga, rigaAdd) {
 
     const pacchettoFinale = {
         trPacchetto: prototrDaPushare,
-        pPacchetto: rigaAdd
+        pPacchetto: "Aggiungi la tua descrizione del task!"
     }
 
     return pacchettoFinale
 }
-
-const aggiungiTr = function (trElementDaPushare) {
-    listaOnScreen.push(trElementDaPushare)
-    refreshLista()
-}
-
-
-const refreshLista = function () {
-    tBody.remove();
-
-
-    let newtBody = document.createElement("tbody");
-
-    console.log(listaOnScreen.length)
-
-    for (let i = 0; i < listaOnScreen.length; i++) {
-
-        let newTr = creatr(listaOnScreen[i].trPacchetto, listaOnScreen[i].pPacchetto);
-        newtBody.appendChild(newTr.trPacchetto)
-    }
-    const trAddItem = document.createElement("tr");
-    const tdButtonAdd = document.createElement("td");
-    const button = document.createElement("input");
-
-    button.onclick = aggiungiTr;
-    button.type = "button";
-    button.value = `+`;
-    const tdVuoto = document.createElement("td");
-
-    tdButtonAdd.appendChild(button);
-    trAddItem.appendChild(tdButtonAdd);
-    trAddItem.appendChild(tdVuoto);
-    trAddItem.appendChild(tdVuoto);
-
-    newtBody.appendChild(trAddItem);
-
-    tablePrincipale.appendChild(newtBody);
-}
-
-
 
 
 function eliminatr(tr) {
@@ -110,5 +121,5 @@ const elemento3 = {
 
 
 aggiungiTr(elemento1)
-//aggiungiTr(elemento2)
-//aggiungiTr(elemento3)
+aggiungiTr(elemento2)
+aggiungiTr(elemento3)

@@ -24,15 +24,22 @@ elemento3 = {
 
 
 const creaForm = function () {
-    const tdVuoto = document.getElementById("spazio_vuoto_per_input_text")
+    const tdVuoto = document.getElementById("spazio_vuoto_per_input_text");
 
     tdVuoto.innerHTML = `
-    <form style="display:flex">
-        <input type="text" placeholder="Digita la nota e premi invio" style="width: 100%">
-        <button>Invio</button>
-    </form>
-`
-}
+        <form id="myForm" style="display:flex" onsubmit="return sendinput()">
+            <input type="text" id="send" placeholder="Digita la nota e premi invio" style="width: 100%">
+            <button type="submit">Invio</button>
+        </form>
+    `;
+};
+
+const sendinput = function () {
+    let inputText = document.getElementById("send").value;
+    aggiungiTr(creatr(inputText))
+};
+
+
 const aggiungiTr = function (trElementDaPushare) {
     listaOnScreen.push(trElementDaPushare)
     refreshLista()
@@ -99,6 +106,7 @@ const creatr = function (riga) {
         }
         riga.remove();
     };
+
     const icon = document.createElement("i")
     icon.classList = "far fa-trash-alt"
     icon.style = "color: #ac80a0;"

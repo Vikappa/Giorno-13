@@ -6,7 +6,20 @@ const trJS = document.getElementById("trJS")
 const tBody = document.getElementById("appendHere")
 const tablePrincipale = document.getElementById("toDoList")
 
-const listaOnScreen = []
+const listaOnScreen = [elemento1 = {
+    titleTask: "Formattazione Html",
+    pPacchetto: "Metto l'header del titolo, un main diviso tra to-do list e paragrafi descrittivi, un pulsante per salvare, checkbox e trashicon"
+},
+
+elemento2 = {
+    titleTask: "Stile CSS",
+    pPacchetto: "Palette, icone da fontawesome, font da google font e altri, flexbox, flexbox direction, margini, bordi"
+},
+
+elemento3 = {
+    titleTask: "Codice JavaScript",
+    pPacchetto: "Parto provando a scrivere degli script che creano righe uguali a quelle fatte dal file html. Se funziona, lo inserisco dinamicamente in un metodo che renderizza la pagina partire da un array di elementi. Aggiungo i listener per le funzioni previste"
+}]
 
 
 
@@ -107,24 +120,8 @@ const creatr = function (riga) {
     return pacchettoFinale
 }
 
+refreshLista()
 
 
-const elemento1 = {
-    titleTask: "Formattazione Html",
-    pPacchetto: "Metto l'header del titolo, un main diviso tra to-do list e paragrafi descrittivi, un pulsante per salvare, checkbox e trashicon"
-}
-
-const elemento2 = {
-    titleTask: "Stile CSS",
-    pPacchetto: "Palette, icone da fontawesome, font da google font e altri, flexbox, flexbox direction, margini, bordi"
-}
-
-const elemento3 = {
-    titleTask: "Codice JavaScript",
-    pPacchetto: "Parto provando a scrivere degli script che creano righe uguali a quelle fatte dal file html. Se funziona, lo inserisco dinamicamente in un metodo che renderizza la pagina partire da un array di elementi. Aggiungo i listener per le funzioni previste"
-}
 
 
-aggiungiTr(elemento1)
-aggiungiTr(elemento2)
-aggiungiTr(elemento3)

@@ -88,11 +88,8 @@ const trDinamico = function (indextask) {
     pTrashIcon.classList = "trashIcon"
     pTrashIcon.onclick = function () {
         let taskDaEliminare = document.getElementById(prototr.id);
-        for (let i = 0; i < listaTask.length; i++) {
-            if ("idtr" + listaTask[i].titleTask === prototr.id) {
-                listaTask.splice(i, 1)
-            }
-        }
+
+        listaTask.splice(indextask, 1)
         taskDaEliminare.remove()
     }
 
@@ -125,16 +122,32 @@ const printTasklist = function () {
 
 const pushmeinto = function () {
     const tdPieno = document.getElementById("inputNomeNuovoTask");
-    let newOggetto = {
-        titolo: tdPieno.value,
-        check: false,
-        descr: ""
+    let giàEsistente = false
+    listaTask.forEach(task => {
+        if (task.titolo === tdPieno.value) {
+            giàEsistente = true
+        }
+    });
+
+    if (giàEsistente) {
+
+        const toRemove = document.getElementById("trAddItem")
+        toRemove.remove()
+        addFormNuovoTask()
+    } else {
+        let newOggetto = {
+            titolo: tdPieno.value,
+            check: false,
+            descr: ""
+        }
+
+
+        listaTask.push(newOggetto)
+        pulisciTaskList()
+        printTasklist()
+        addFormNuovoTask()
     }
 
-    listaTask.push(newOggetto)
-    pulisciTaskList()
-    printTasklist()
-    addFormNuovoTask()
 }
 
 const creaForm = function () {

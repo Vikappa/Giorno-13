@@ -1,63 +1,155 @@
-const sideTextArea = document.getElementById("sideDesk")
-const arrayCoppieListaTesto = []
-const trHtml = document.getElementById("trHtml")
-const trCSS = document.getElementById("trCSS")
-const trJS = document.getElementById("trJS")
-const tBody = document.getElementById("appendHere")
-const tablePrincipale = document.getElementById("toDoList")
+const appendHere = document.getElementById("appendHere")
+//
+const listaTask = [
+    {
+        titolo: "HTML",
+        check: true,
+        descr: "Formattazione interna della pagina quasi nulla: fatto!"
+    }, {
+        titolo: "CSS",
+        check: true,
+        descr: "Palette, icone da fontawesome, font da google font e altri, flexbox, flexbox direction, margini, bordi"
+    },
 
-const listaOnScreen = [elemento1 = {
-    titleTask: "Formattazione Html",
-    pPacchetto: "Metto l'header del titolo, un main diviso tra to-do list e paragrafi descrittivi, un pulsante per salvare, checkbox e trashicon"
-},
+    {
+        titolo: "JS",
+        check: true,
+        descr: "Una cifra di codice!"
+    }
+]
 
-elemento2 = {
-    titleTask: "Stile CSS",
-    pPacchetto: "Palette, icone da fontawesome, font da google font e altri, flexbox, flexbox direction, margini, bordi"
-},
+//codice generato con chatGPT
+// Funzione per impostare i dati nel localStorage
+// function setQuaterna(key, value1, value2, value3, value4) {
+//     // Creare un oggetto rappresentante la quaterna
+//     const quaterna = {
+//         value1: value1,
+//         value2: value2,
+//         value3: value3,
+//         value4: value4
+//     };
 
-elemento3 = {
-    titleTask: "Codice JavaScript",
-    pPacchetto: "Parto provando a scrivere degli script che creano righe uguali a quelle fatte dal file html. Se funziona, lo inserisco dinamicamente in un metodo che renderizza la pagina partire da un array di elementi. Aggiungo i listener per le funzioni previste"
-}]
+//     // Convertire l'oggetto in formato JSON e memorizzarlo nel localStorage
+//     localStorage.setItem(key, JSON.stringify(quaterna));
+// }
 
+// // Funzione per ottenere i dati dal localStorage
+// function getQuaterna(key) {
+//     // Recuperare la stringa JSON dal localStorage
+//     const quaternaString = localStorage.getItem(key);
 
+//     // Verificare se la chiave esiste nel localStorage
+//     if (quaternaString === null) {
+//         // Restituire un valore di default o gestire l'assenza della chiave
+//         return null;
+//     }
+
+//     // Convertire la stringa JSON in un oggetto JavaScript
+//     const quaterna = JSON.parse(quaternaString);
+
+//     return quaterna;
+// }
+
+// // Esempio di utilizzo:
+// const chiave = "miaQuaterna";
+// setQuaterna(chiave, "valore1", "valore2", "valore3", "valore4");
+
+// // Ottenere i dati
+// const risultato = getQuaterna(chiave);
+
+// // Visualizzare i dati
+// console.log(risultato);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const trDinamico = function (indextask) {
+    const prototr = document.createElement("tr")
+    prototr.id = "idtr" + indextask
+    const tdcheckbox = document.createElement("td")
+    const protocheckbox = document.createElement("input")
+    protocheckbox.type = "checkbox"
+    protocheckbox.id = "checkbox_" + indextask
+    protocheckbox.classList = "checkboxtodolist"
+    protocheckbox.checked = listaTask[indextask].check
+    protocheckbox.onchange = function () {
+        const protocheckbox = document.getElementById("checkbox_" + indextask)
+        if (protocheckbox.checked) {
+            listaTask[indextask].check = true
+        } else {
+            listaTask[indextask].check = false
+        }
+        console.log(listaTask)
+    }
+    const tdcompito = document.createElement("td")
+    const labelCompito = document.createElement("label")
+    labelCompito.htmlFor = protocheckbox.id
+    labelCompito.innerText = listaTask[indextask].titolo
+    const prototdTrashIcon = document.createElement("td")
+    const pTrashIcon = document.createElement("p")
+    pTrashIcon.classList = "trashIcon"
+    pTrashIcon.onclick = function () {
+        let taskDaEliminare = document.getElementById(prototr.id);
+        for (let i = 0; i < listaTask.length; i++) {
+            if ("idtr" + listaTask[i].titleTask === prototr.id) {
+                listaTask.splice(i, 1)
+            }
+        }
+        taskDaEliminare.remove()
+    }
+
+    const icon = document.createElement("i")
+    icon.classList = "far fa-trash-alt"
+    icon.style = "color: #ac80a0;"
+
+    pTrashIcon.appendChild(icon)
+    prototdTrashIcon.appendChild(pTrashIcon)
+    tdcompito.appendChild(labelCompito)
+    tdcheckbox.appendChild(protocheckbox)
+    prototr.appendChild(tdcheckbox)
+    prototr.appendChild(tdcompito)
+    prototr.appendChild(prototdTrashIcon)
+
+    return prototr
+}
+
+const pulisciTaskList = function () {
+    while (appendHere.firstChild) {
+        appendHere.removeChild(appendHere.firstChild);
+    }
+}
+
+const printTasklist = function () {
+    for (let i = 0; i < listaTask.length; i++) {
+        appendHere.appendChild(trDinamico(i))
+    }
+}
+
+const pushmeinto = function () {
+    const tdPieno = document.getElementById("inputNomeNuovoTask");
+    let newOggetto = {
+        titolo: tdPieno.value,
+        check: false,
+        descr: ""
+    }
+
+    listaTask.push(newOggetto)
+    pulisciTaskList()
+    printTasklist()
+    addFormNuovoTask()
+}
 
 const creaForm = function () {
     const tdVuoto = document.getElementById("spazio_vuoto_per_input_text");
 
     tdVuoto.innerHTML = `
-        <form id="myForm" style="display:flex" onsubmit="return sendinput()">
-            <input type="text" id="send" placeholder="Digita la nota e premi invio" style="width: 100%">
+        <form id="myForm" style="display:flex" onsubmit="return pushmeinto()">
+            <input type="text" id="inputNomeNuovoTask" placeholder="Digita la nota e premi invio" style="width: 100%">
             <button type="submit">Invio</button>
         </form>
-    `;
-};
-
-const sendinput = function () {
-    let inputText = document.getElementById("send").value;
-    aggiungiTr(creatr(inputText))
-};
-
-
-const aggiungiTr = function (trElementDaPushare) {
-    listaOnScreen.push(trElementDaPushare)
-    refreshLista()
+    `
 }
 
 
-const refreshLista = function () {
-
-    while (tBody.firstChild) {
-        tBody.removeChild(tBody.firstChild);
-    }
-
-    for (let i = 0; i < listaOnScreen.length; i++) {
-
-        let newTr = creatr(listaOnScreen[i].titleTask);
-        tBody.appendChild(newTr.trPacchetto)
-    }
-
+const addFormNuovoTask = function () {
     const trAddItem = document.createElement("tr");
     trAddItem.id = "trAddItem"
     const tdButtonAdd = document.createElement("td");
@@ -76,60 +168,8 @@ const refreshLista = function () {
     trAddItem.appendChild(tdVuoto1);
     trAddItem.appendChild(tdVuoto2);
 
-    tBody.appendChild(trAddItem);
+    appendHere.appendChild(trAddItem);
 }
 
-const creatr = function (riga) {
-    const prototrDaPushare = document.createElement("tr")
-    prototrDaPushare.id = "idtr" + riga
-    const tdcheckbox = document.createElement("td")
-    const protocheckbox = document.createElement("input")
-    protocheckbox.type = "checkbox"
-    protocheckbox.id = "checkbox_" + riga
-    protocheckbox.classList = "checkboxtodolist"
-    const tdcompito = document.createElement("td")
-    const labelCompito = document.createElement("label")
-    labelCompito.htmlFor = protocheckbox.id
-    labelCompito.innerText = riga
-    const prototdTrashIcon = document.createElement("td")
-    const pTrashIcon = document.createElement("p")
-    pTrashIcon.classList = "trashIcon"
-    pTrashIcon.onclick = function () {
-        let riga = document.getElementById(prototrDaPushare.id);
-        for (let i = 0; i < listaOnScreen.length; i++) {
-            console.log("listaOnScreen[i].titleTask= [" + listaOnScreen[i].titleTask + "] prototrDaPushare.id= [" + prototrDaPushare.id + "]")
-            if ("idtr" + listaOnScreen[i].titleTask === prototrDaPushare.id) {
-                listaOnScreen.splice(i, 1)
-                console.log("Trovato")
-                console.log(listaOnScreen)
-            }
-        }
-        riga.remove();
-    };
-
-    const icon = document.createElement("i")
-    icon.classList = "far fa-trash-alt"
-    icon.style = "color: #ac80a0;"
-
-    pTrashIcon.appendChild(icon)
-    prototdTrashIcon.appendChild(pTrashIcon)
-    tdcompito.appendChild(labelCompito)
-    tdcheckbox.appendChild(protocheckbox)
-    prototrDaPushare.appendChild(tdcheckbox)
-    prototrDaPushare.appendChild(tdcompito)
-    prototrDaPushare.appendChild(prototdTrashIcon)
-
-    const pacchettoFinale = {
-        titleTask: riga,
-        trPacchetto: prototrDaPushare,
-        pPacchetto: "Aggiungi la tua descrizione del task!"
-    }
-
-    return pacchettoFinale
-}
-
-refreshLista()
-
-
-
-
+printTasklist()
+addFormNuovoTask()
